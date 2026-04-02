@@ -146,6 +146,7 @@ letter-spacing: 0.2em;
 text-transform: uppercase;
 color: var(--gold);
 margin-bottom: 1.5rem;
+opacity: 0;
 animation: fadeUp 0.8s ease forwards 0.2s;
 }
 .hero-name {
@@ -155,6 +156,7 @@ font-weight: 300;
 line-height: 1.05;
 color: var(--white);
 margin-bottom: 0.3rem;
+opacity: 0;
 animation: fadeUp 0.8s ease forwards 0.4s;
 }
 .hero-name span { color: var(--gold); font-weight: 600; }
@@ -164,6 +166,7 @@ font-size: clamp(1.2rem, 2.5vw, 1.8rem);
 font-weight: 300;
 color: var(--muted);
 margin-bottom: 2rem;
+opacity: 0;
 animation: fadeUp 0.8s ease forwards 0.6s;
 }
 .hero-desc {
@@ -171,12 +174,14 @@ font-size: 1rem;
 color: rgba(240,236,227,0.7);
 max-width: 520px;
 margin-bottom: 2.5rem;
+opacity: 0;
 animation: fadeUp 0.8s ease forwards 0.8s;
 }
 .hero-links {
 display: flex;
 gap: 1rem;
 flex-wrap: wrap;
+opacity: 0;
 animation: fadeUp 0.8s ease forwards 1s;
 }
 .btn-primary {
@@ -225,12 +230,16 @@ background: rgba(201,168,76,0.08);
 transform: translateY(-2px);
 }
 .hero-stats {
+position: absolute;
+bottom: 3rem;
+left: 4rem;
 display: flex;
 gap: 3rem;
-margin-top: 2.5rem;
+opacity: 0;
+animation: fadeUp 0.8s ease forwards 1.2s;
 }
 .stat-num {
-font-family: 'Cormorant Garamond', Georgia, serif;
+font-family: 'Cormorant Garamond', serif;
 font-size: 2.5rem;
 font-weight: 600;
 color: var(--gold);
@@ -285,6 +294,9 @@ padding: 2.5rem;
 position: relative;
 overflow: hidden;
 transition: background 0.3s;
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.6s ease, transform 0.6s ease, background 0.3s;
 }
 .project-card.visible { opacity: 1; transform: translateY(0); }
 .project-card:hover { background: #172033; }
@@ -369,6 +381,9 @@ background: var(--navy-border);
 .skill-group {
 background: var(--navy-card);
 padding: 2rem 2rem 2.5rem;
+opacity: 0;
+transform: translateY(16px);
+transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .skill-group.visible { opacity: 1; transform: translateY(0); }
 .skill-group-icon {
@@ -546,11 +561,7 @@ nav { padding: 1rem 1.5rem; }
 .nav-links { gap: 1.5rem; }
 #hero { padding: 7rem 1.5rem 5rem; }
 .hero-ring { display: none; }
-.hero-stats {
-display: flex;
-gap: 3rem;
-margin-top: 2.5rem;
-}
+.hero-stats { left: 1.5rem; gap: 2rem; }
 .section-inner { padding: 4rem 1.5rem; }
 .projects-grid { grid-template-columns: 1fr; }
 .skills-grid { grid-template-columns: 1fr 1fr; }
@@ -626,10 +637,32 @@ Live RAG Demo
 
 </div>
 
+</div>
+
 <div class="hero-stats">
-<div><div class="stat-num">13+</div><div class="stat-label">Years Experience</div></div>
-<div><div class="stat-num">4</div><div class="stat-label">UI &amp; AI Projects Live</div></div>
-<div><div class="stat-num">3.93</div><div class="stat-label">MS GPA &middot; Temple</div></div>
+
+<div>
+
+<div class="stat-num">13+</div>
+
+<div class="stat-label">Years Experience</div>
+
+</div>
+
+<div>
+
+<div class="stat-num">4</div>
+
+<div class="stat-label">UI,AI Projects Live</div>
+
+</div>
+
+<div>
+
+<div class="stat-num">3.93</div>
+
+<div class="stat-label">MS GPA · Temple</div>
+
 </div>
 
 </div>
@@ -984,7 +1017,7 @@ full-stack roles. Let's build something that scales.
 
 <div class="contact-links">
 
-<a class="contact-link" href="/cdn-cgi/l/email-protection#a8c3ddc5c9da86dbc7cedcc1c6ccc1cddbe8cfc5c9c1c486cbc7c5">
+<a class="contact-link" href="mailto:kumar.softindies@gmail.com">
 
 <svg class="contact-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
 
@@ -992,7 +1025,7 @@ full-stack roles. Let's build something that scales.
 
 <div class="contact-link-label">Email</div>
 
-<div class="contact-link-text"><span class="__cf_email__" data-cfemail="600b150d01124e130f0614090e0409051320070d01090c4e030f0d">[email&#160;protected]</span></div>
+<div class="contact-link-text">kumar.softindies@gmail.com</div>
 
 </div>
 
@@ -1054,13 +1087,44 @@ full-stack roles. Let's build something that scales.
 
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 
-// Scroll-triggered fade-in (progressive enhancement only)
-// Cards are visible by default; animation adds polish if JS runs
-document.querySelectorAll('.project-card, .skill-group').forEach((el, i) => {
-  el.style.opacity = '1';
-  el.style.transform = 'none';
+// Scroll-triggered fade-in for cards
+
+const observer = new IntersectionObserver((entries) => {
+
+entries.forEach((entry, i) => {
+
+if (entry.isIntersecting) {
+
+setTimeout(() => {
+
+entry.target.classList.add('visible');
+
+}, entry.target.dataset.delay || 0);
+
+observer.unobserve(entry.target);
+
+}
+
+});
+
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.project-card').forEach((el, i) => {
+
+el.dataset.delay = i * 120;
+
+observer.observe(el);
+
+});
+
+document.querySelectorAll('.skill-group').forEach((el, i) => {
+
+el.dataset.delay = i * 80;
+
+observer.observe(el);
+
 });
 
 // Smooth active nav highlight
@@ -1070,13 +1134,23 @@ const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
 
 window.addEventListener('scroll', () => {
+
 let current = '';
+
 sections.forEach(s => {
-  if (window.scrollY >= s.offsetTop - 120) current = s.id;
+
+if (window.scrollY >= s.offsetTop - 120) current = s.id;
+
 });
+
 navLinks.forEach(a => {
-  a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+
+a.style.color = a.getAttribute('href') === '#' + current
+
+? 'var(--gold)' : '';
+
 });
+
 });
 
 </script>
