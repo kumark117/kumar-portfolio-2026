@@ -359,16 +359,18 @@
     <div class="project-card">
       <div class="project-num">01 · NEW</div>
       <h3>Agentic AI Researcher (MCP) for Trading</h3>
-      <p>Autonomous multi-agent system using MCP (Model Context Protocol) tool wrappers that dispatches
-         parallel ReAct agents (Price, News, Technical) to gather live market data, scan financial
-         sentiment, and run technical analysis — then synthesises everything into a structured
-         BUY / SELL / HOLD signal with real-time SSE log streaming. Covers Gold, Silver, Copper,
-         Uranium &amp; Zinc across COMEX / LME and MCX.</p>
+      <p>Real MCP server (<em>mcp_server.py</em>, stdio transport) exposing 5 tools via
+         <em>@mcp.tool()</em> decorators — agents dispatch all calls through MCP
+         <em>ClientSession</em>, never importing tools directly. Parallel ReAct agents
+         (Price, News, Technical) run via <em>asyncio.gather()</em>, synthesising live prices,
+         sentiment, and technical indicators into a structured BUY / SELL / HOLD signal
+         with real-time SSE log streaming. Covers Gold, Silver, Copper, Uranium &amp; Zinc
+         across COMEX / LME and MCX.</p>
       <div class="tag-row">
         <span class="tag">Next.js</span><span class="tag">FastAPI</span>
-        <span class="tag">Claude (Anthropic)</span><span class="tag">ReAct Agents</span>
-        <span class="tag">SSE</span><span class="tag">yfinance</span>
-        <span class="tag">Multi-Agent</span><span class="tag">MCP</span>
+        <span class="tag">Claude (Anthropic)</span><span class="tag">MCP Server/Client</span>
+        <span class="tag">ReAct Agents</span><span class="tag">SSE</span>
+        <span class="tag">Alpha Vantage</span><span class="tag">Tavily</span>
       </div>
       <a class="project-link" href="https://agentic-ai-researcher-for-trading-1.onrender.com/" target="_blank">Live Demo</a>
     </div>
